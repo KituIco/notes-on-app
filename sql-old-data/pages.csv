@@ -1,0 +1,24 @@
+pageId,workspaceId,title,totalBlocks,order,locked,banner,shared,cover,icon
+a6BY2TJlh,3SeASDwjs,"Learnings and Targets",8,1,0,0,1,http://localhost:3000/static/pagecover_a6BY2TJlh.jpeg,http://localhost:3000/static/pageicon_a6BY2TJlh.webp
+K4fg5941r,3SeASDwjs,"Technical Requirements",12,2,0,0,0,http://localhost:3000/static/pagecover_K4fg5941r.jpeg,http://localhost:3000/static/pageicon_K4fg5941r.png
+_2aJ2MTY0,3SeASDwjs,"User Stories and Features",25,3,0,0,0,http://localhost:3000/static/pagecover__2aJ2MTY0.webp,http://localhost:3000/static/pageicon__2aJ2MTY0.jpeg
+K4QVGveY4,3SeASDwjs,"Another Page",1,4,0,0,0,http://localhost:3000/static/pagecover_K4QVGveY4.webp,http://localhost:3000/static/pageicon_K4QVGveY4.jpeg
+NiXxz5w6c,9JdcfRGr4,"Learnings and Targets",10,1,0,0,0,http://localhost:3000/static/pagecover_NiXxz5w6c_1658722096778.webp,http://localhost:3000/static/pageicon_NiXxz5w6c_1658440030923.webp
+dcwHH4W5IV,9JdcfRGr4,"New Page 1",0,2,0,0,0,,
+VDgh9VH-p,9JdcfRGr4,"New Page 2",0,3,0,0,0,,
+2I6Tnr_d4,9JdcfRGr4,"New Page 3",0,4,0,0,0,,
+HeCwjDtDS_,9JdcfRGr4,"New Page 4",0,5,0,0,0,,
+f6XozEGia,9JdcfRGr4,"New Page 5",0,6,0,0,0,,
+IAQ4zMZSq,9JdcfRGr4,"New Page 6",0,7,0,0,0,,
+0Us0pGNuK,ccYpoy3gD,"Crocodiles: Large Semiaquatic Reptiles",14,1,0,0,0,http://localhost:3000/static/pagecover_0Us0pGNuK.jpeg,http://localhost:3000/static/pageicon_0Us0pGNuK.png
+ppwvpfnOi,ccYpoy3gD,"Snakes: Limbless Carnivorous Reptiles",6,2,0,0,0,http://localhost:3000/static/pagecover_ppwvpfnOi.jpeg,http://localhost:3000/static/pageicon_ppwvpfnOi.jpeg
+d1mIQ37jS,ccYpoy3gD,"Dummy Page 1",0,3,0,0,0,,
+joJWzsyZ5,ccYpoy3gD,"Dummy Page 2",1,4,0,0,0,,
+IaebIDlu5R,ccYpoy3gD,"Dummy Page 3",1,5,0,0,0,,
+913QtFCpZ6,ccYpoy3gD,"Dummy Page 4",1,6,0,0,0,,
+9SATUVLLy,ccYpoy3gD,"Dummy Page 5",1,7,0,0,0,,
+QHsnbY4_SR,ccYpoy3gD,"Dummy Page 6",1,8,0,0,0,,
+384iNdEeyd,ccYpoy3gD,"Dummy Page 7",1,9,0,0,0,,
+Y7LDhTKWv,ccYpoy3gD,"Dummy Page 8",0,10,0,0,0,,
+03w7qfHRS,ccYpoy3gD,"Dummy Page 9",1,11,0,0,0,,
+RgiYy2Hl3,Fs_LhT6AQ,"New Page 1",0,1,0,0,0,,
