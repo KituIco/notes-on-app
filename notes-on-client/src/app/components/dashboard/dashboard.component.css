@@ -1,0 +1,343 @@
+.navbar {
+    background-color: rgb(255,254,252);
+    padding-right:10px;
+    border-bottom:1px solid #E3E3E3; 
+}
+
+.header {
+    max-width: 1260px;
+}
+
+.app-logo{
+    max-width: 50px;
+    transform: translate(15%, -5%);
+}
+
+.navbar-brand {
+    font-weight: bold ;
+    letter-spacing: 0px;
+    color: black;
+    font-size: 17px;
+    padding-top: 8px;
+    font-family: Arial;   
+}
+@media (max-width: 372.98px) {
+    .navbar-brand{
+        font-size:0px;
+    }
+}
+
+.primary {
+    color: #FFFFFF;
+    background: #e16259;
+    border: 1px solid #be5643;
+    box-shadow: 0 1px 2px rgba(15, 15, 15, 0.1);
+}
+.primary:hover {
+    background: #ac4b44;
+}
+
+.btn.nav-btn{
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0px;
+    height: 35px;
+    min-width: 90px;
+    font-family:Arial;
+}
+@media (max-width: 767.98px) {                  
+    .btn.nav-btn {
+        width:100%;
+    }
+}
+
+.dashboard {
+    max-width: 1260px;
+    margin: auto;
+    padding: 34px 14px;
+}
+
+.body-div{
+    margin: 60px 0px 0px 0px;
+}
+
+.body-spaces{
+    height: 360px;
+    overflow-y: scroll;
+    padding: 30px 20px;
+}
+
+.top-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    font-weight: 700;
+    font-size: 3.8625rem;
+    line-height: 3.9625rem;
+    font-variation-settings: "wght" 671;
+    letter-spacing: -0.0115em;
+    font-family:  Arial;
+}
+@media (max-width: 937.98px) {
+    .top-title{
+        font-size: 3.2625rem;
+    }
+}
+@media (max-width: 575.98px) {
+    .top-title{
+        font-size: 2.65rem;
+    }
+}
+
+.top-form{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.top-btn{
+    margin-top:30px;
+    min-width: min(360px,26vw);
+}
+@media (max-width: 767.98px) {
+    .top-btn{
+        min-width: 80vw;
+    }
+}
+
+input.ng-invalid.ng-touched {
+    border: rgb(123, 4, 4) 1px solid;
+}
+
+.form-control{
+    max-width: 100%;
+    background-color: #F7F7F7;
+    font-size: 16px;
+    font-family: "Segoe UI";
+    font-weight: 400;
+}
+
+.form-control::placeholder{
+    font-weight: 100;
+}
+
+.secondary {
+    color: rgb(238, 87, 87);
+    background: rgb(253,245,242);
+    border: 1px solid rgb(238, 87, 87);
+    box-shadow: 0 1px 2px rgba(15, 15, 15, 0.1);
+}
+.secondary:hover {
+    background:  rgb(249, 198, 179);
+}
+
+.home-hr {
+    max-width: 1260px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.home-ftr{
+    background-color: rgb(255,254,252);
+    max-width: 1260px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.ftr-text{
+    font-weight:100;
+    font-size: 15px;
+    font-family: Arial;
+}
+@media (max-width: 575.98px) {
+    .ftr-text{
+        font-size: 13px;
+        line-height: 13px;
+    }
+}
+
+.ftr-link{
+    font-weight:400;
+    color:#ac4b44;
+    font-size: 15px;
+    text-decoration: none;
+    font-family: Arial;
+}
+@media (max-width: 575.98px) {
+    .ftr-link{
+        font-size: 13px;
+        line-height: 13px;
+    }
+}
+.space-modal{
+    position: fixed;
+    overflow-y: scroll;
+    top: 15vh;
+    vertical-align: middle;
+    -webkit-animation-delay: 2s;
+    -moz-animation-delay: 2s;
+    animation-delay: 2s;
+    overflow: hidden;
+}
+
+.modal-dialog {
+    justify-content: center !important;
+    max-width: min(100vw,620px);
+    pointer-events: all;
+}
+  
+.modal-content {
+    width: initial !important;
+}
+
+.modal-title {
+    font-family: "Noto Sans";
+    font-weight: 100;
+    letter-spacing: -0.5px;
+    color:#ac4b44;
+}
+
+.modal-body {
+    max-height: 40vh;
+    overflow-y: scroll;
+}
+
+.space-title {
+    font-weight: 400;
+    margin-bottom: 0px;
+    margin-top: 4px;
+    font-family: 'Segoe UI';
+    font-size: 20px;
+    line-height: 18px;
+    letter-spacing: -0.5px;
+}
+
+.space-date {
+    font-weight: 100;
+    margin-bottom: 0px;
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    line-height: 9px;
+}
+
+
+.space-card {
+  flex-direction: row;
+  align-items: center;
+  height: 90px
+}
+.card-title {
+  font-weight: bold;
+}
+.space-card img {
+    height:70px;
+    width:70px;
+    object-fit: cover;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+
+.card-link{
+    text-decoration: none;
+    color:black;
+    font-family: Arial;
+}
+
+.card-col{
+    padding: 6px 12px;
+}
+
+.card-link:hover{
+    opacity: 0.8;
+}
+
+.space-card:hover{
+    box-shadow: 1px 4px 10px rgb(212, 210, 210);
+}
+
+.space-card {
+    padding: 10px
+}
+
+.card-img-top{
+    height:230px;
+    background-color: #f9d29d;
+    background-image: linear-gradient(315deg, #f9d29d 0%, #ffd8cb 74%);
+}
+
+.pro-img {
+    margin-top: -92px;
+    margin-bottom: 20px
+}
+
+.pro-img img {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.27);
+    height:136px;
+    width:136px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.btn-rounded {
+    border-radius: 30px;
+    padding: 4px 30px;
+    margin-top: 10px;
+}
+
+.user-fullname {
+    font-size: 30px;
+    font-weight: 700;
+    margin:0px;
+    font-variant: small-caps;
+    line-height: 24px;
+    letter-spacing: -1px;
+    font-family: 'Segoe UI';
+}
+
+.user-username {
+    font-size: 18px;
+    font-weight: 200;
+    margin-bottom:50px;
+    letter-spacing: -0.2px;
+    font-family: 'Segoe UI';
+}
+
+.user-subheading {
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 0px;
+    letter-spacing: -0.2px;
+    line-height: 12px;
+    font-family: 'Segoe UI';
+}
+
+.user-heading {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    letter-spacing: -0.2px;
+    font-family: 'Segoe UI';
+}
+
+.custom-file-upload {
+    cursor: pointer;
+    color: rgba(55, 53, 47, 0.8);
+    font-family: 'Segoe UI';
+    font-weight: 100;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.custom-file-upload:hover {
+    background: rgba(229, 227, 226, 0.5);
+}
+input[type="file"] {
+    display: none;
+}

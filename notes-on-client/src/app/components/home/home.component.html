@@ -1,0 +1,115 @@
+<nav class="navbar sticky-top navbar-expand-md">
+    
+    <div class="container-fluid header">
+    
+        <a class="navbar-brand" href="/">
+            <img src={{logo}} class="app-logo d-inline-block float-left img-fluid">
+            {{title}}
+        </a>
+        
+
+        <button class="nav-toggler navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-expanded="false">
+            <span class="fa fa-bars"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse nav-center" id="navbarContent">
+            <ul class="navbar-nav me-auto">
+                <li *ngFor="let item of navItems" class="nav-item">
+                    <a class="nav-link active rounded" href="{{item.path}}" routerLinkActive="active">{{item.name}}</a>
+                </li>
+            </ul>
+
+            <div class="row flex-md-row-reverse">
+                <div class="d-flex col-md-{{navbtn.size}}" *ngFor="let navbtn of navButtons">
+                    <a class="btn {{navbtn.design}} nav-btn" href="{{navbtn.path}}">{{navbtn.name}}</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</nav>
+ 
+<div class="section-div">
+    
+    <div class="row section-row d-flex flex-md-row-reverse" id="top">
+        <div class="d-flex col-xl-6 col-lg-5 col-md-12">
+            <div class="d-flex home-img-container">
+                <img class="home-page-img" src="http://localhost:3000/static/images/home-page-hero.png">
+            </div>  
+        </div>
+
+        <div class="col-xl-6 col-lg-7 col-md-12 top-text">
+            <h1 class="top-title text-lg-start text-center">One workspace.<br>Every team.</h1>
+            <div class="top-subtitle">
+                <h2 class="top-subtitle-h text-lg-start text-center">We’re more than a doc. Or a table. Customize NotesOn to work the way you do.</h2>
+            </div>
+
+            <div class="top-button">
+                <a class="btn primary top-btn" href="/signup">Get started now</a>
+            </div>
+            <div class="top-desc">
+                <h4 class="top-desc-h text-lg-start text-center">Notion clone made with</h4>
+            </div>
+            <div class="top-logos text-lg-start text-center">
+                <img class="made-with" src="http://localhost:3000/static/images/logo-nodejs.png"> 
+                <img class="made-with" src="http://localhost:3000/static/images/logo-nodejs.png"> 
+                <img class="made-with" src="http://localhost:3000/static/images/logo-nodejs.png"> 
+                <img class="made-with" src="http://localhost:3000/static/images/logo-nodejs.png"> 
+            </div>
+        </div>
+    </div>
+
+    <div class="row section-row d-flex" *ngFor="let cSec of cSections">
+        <div class="col-lg-4 col-md-12 csec-text" id={{cSec.id}}>
+            <img class="csec-logo" src={{cSec.img}}> 
+            <h1 class="csec-title text-start">{{cSec.title}}</h1>
+            <div class="csec-subtitle">
+                <h2 class="csec-subtitle-h text-start">{{cSec.subtitle}}</h2>
+            </div>
+        </div>
+
+        <div class="d-flex col-lg-8 col-md-12">
+            <div class="d-flex">
+                <img class="csec-img rounded" src={{cSec.screenshot}}>
+            </div>  
+        </div>
+    </div>
+
+
+</div>
+
+<hr class="home-hr">
+
+<footer class="row home-ftr text-muted">
+    <div class="col-8">
+      <p class="ftr-text">
+        NotesOn is a <a href="https://notion.so" class="ftr-link">Notion</a> clone! Your all-in-one workspace for notes, docs, wikis, projects, and team collaboration. 
+      </p>
+    </div>
+    <div class="col-4">
+        <p class="float-end">
+            <a href="/#top" class="ftr-link">Back to Top</a>
+          </p>
+    </div>
+</footer>
+
+<div class="modal fade space-modal" id="openModal" #openModal tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User Redirect</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div >
+                <div class="modal-body top-form" style="text-align: center; padding: 40px 10px 40px 0px; font-weight: 300">
+                    Page Locked by Owner.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn primary" data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="row" style="cursor: pointer;">
+    <div class="col-12" *ngIf="workspace">
+        <div class="profile-block">
+            <div class="profile-cover cover-container">
+                <img [src]="workspace.cover" *ngIf="workspace.cover" class="img-cover">  
+            </div>
+            <div class="profile-img rounded">
+                <img src="http://localhost:3000/static/images/workspace-icon.png" style="padding:10px;" *ngIf="!workspace.icon">
+                <img [src]="workspace.icon" *ngIf="workspace.icon">       
+            </div>
+            
+            <div class="profile-menu">
+                <div class="block-menu">
+                    <ul>
+                        <li>
+                            <div class="rounded" data-bs-toggle="dropdown" aria-expanded="false" id="page-cover">
+                                Change Cover
+                            </div>
+                            <span class="dropdown-menu" aria-labelledby="page-cover">
+                                <label for=cover class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload" style="padding-right: 6px"></i>Upload an Image
+                                </label>
+                                <input (change)="onCoverSelect($event)" type="file" id="cover">
+                            </span>
+                        </li>
+                        <li>
+                            <div class="rounded" data-bs-toggle="dropdown" aria-expanded="false" id="page-icon">
+                                Change Icon
+                            </div>
+                            <span class="dropdown-menu" aria-labelledby="page-icon">
+                                <label for=icon class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload" style="padding-right: 6px"></i>Upload an Image
+                                </label>
+                                <input (change)="onIconSelect($event)" type="file" id="icon">
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="space-info" *ngIf="workspace">
+    <p class="space-title"> {{workspace.title}} </p>
+    <p class="space-sub"> Created by {{workspace.userName}} on {{formatDate(workspace.creationDate!)}}</p>
+
+    <p class="description"> {{workspace.description}}</p>
+    <p class="footer" *ngIf="workspace.totalPages">Browse {{formatPage(workspace.totalPages!)}} of this workspace using the side navagation bar!</p>
+    <p class="footer" *ngIf="!workspace.totalPages">Create a page using the side navagation bar!</p>
+</div>

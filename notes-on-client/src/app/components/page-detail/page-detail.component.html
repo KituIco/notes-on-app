@@ -1,0 +1,142 @@
+<div class="row banner banner-{{page.banner}}" *ngIf="page" style="cursor: pointer;">
+    <div class="col-12">
+        <div class="profile-block">
+            <div class="profile-cover cover-container">
+                <img [src]="page.cover" *ngIf="page.cover" class="img-cover">  
+            </div>
+            <div class="profile-img rounded">
+                <img src="http://localhost:3000/static/images/page-icon.webp" style="padding:10px; padding-right:4px;" *ngIf="!page.icon">
+                <img [src]="page.icon" *ngIf="page.icon">       
+            </div>
+            
+            <div class="profile-menu">
+                <div class="block-menu">
+                    <ul class="locked-{{page.locked}} forced-{{forceLock}}">
+                        <li>
+                            <div class="rounded" data-bs-toggle="dropdown" aria-expanded="false" id="page-cover">
+                                Change Cover
+                            </div>
+                            <span class="dropdown-menu" aria-labelledby="page-cover">
+                                <label for=cover class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload" style="padding-right: 6px"></i>Upload an Image
+                                </label>
+                                <input (change)="onCoverSelect($event)" type="file" id="cover">
+                            </span>
+                        </li>
+                        <li>
+                            <div class="rounded" data-bs-toggle="dropdown" aria-expanded="false" id="page-icon">
+                                Change Icon
+                            </div>
+                            <span class="dropdown-menu" aria-labelledby="page-icon">
+                                <label for=icon class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload" style="padding-right: 6px"></i>Upload an Image
+                                </label>
+                                <input (change)="onIconSelect($event)" type="file" id="icon">
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-page"  class="page-frame">
+    <div class="page-content" *ngIf="page" >
+        <form [formGroup]="form" class="page-title">
+            <quill-editor id="title" format="html" [modules]="{toolbar: false}" theme="bubble" placeholder="Untitled" [readOnly]=page.locked||forceLock spellcheck="false"
+            formControlName="title" (onSelectionChanged)="titleSelection($event);" [modules]="modules" (onContentChanged)="titleChange($event);">
+            <div quill-editor-toolbar style="display:none"></div>
+            </quill-editor>
+        </form>
+
+        <div class="row justify-content-center" cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <div class="col row col-lg-{{sizes[block.size]}} col-12 row-block" style="height:100%" *ngFor="let block of blocks" cdkDrag [cdkDragDisabled]="onhold">
+
+                <div class="col col-auto col-button d-inline locked-{{page.locked}} forced-{{forceLock}} col-{{block.type}}" cdkDragHandle (mouseover)="onDrag()" (mouseleave)="outDrag()">
+                    <span class="button fa fa-plus" (click)="createBlock(block.order+1)"></span> 
+                    <span class="button fa fa-angle-double-down" data-bs-toggle="dropdown" aria-expanded="false" id="blockType"></span>
+                    <ul class="dropdown-menu dropdown-menu-end" style="min-width: 110px; padding:4px" aria-labelledby="blockType" >
+                        <li><span class="dropdown-item" (click)="editType(block.blockId, block.order, 'header1')" *ngIf="block.type!='image'">Header 1</span></li>
+                        <li><span class="dropdown-item" (click)="editType(block.blockId, block.order, 'header2')" *ngIf="block.type!='image'">Header 2</span></li>
+                        <li><span class="dropdown-item" (click)="editType(block.blockId, block.order, 'header3')" *ngIf="block.type!='image'">Header 3</span></li>
+                        <li><span class="dropdown-item" (click)="editType(block.blockId, block.order, 'body')" *ngIf="block.type!='image'">Body Text</span></li>
+                        <li><span class="dropdown-item" (click)="editType(block.blockId, block.order, 'image')" *ngIf="block.type!='image'">Image</span></li>
+
+                        <li><hr class="dropdown-divider" style="margin:4px 0px; width:100%" *ngIf="block.type!='image'"></li>
+                        <li><span class="dropdown-item" (click)="editSize(block.blockId, block.order, 'full')">Full Width</span></li>
+                        <li><span class="dropdown-item" (click)="editSize(block.blockId, block.order, 'large')">Large Size</span></li>
+                        <li><span class="dropdown-item" (click)="editSize(block.blockId, block.order, 'half')">Half Width</span></li>
+                        <li><span class="dropdown-item" (click)="editSize(block.blockId, block.order, 'small')">Small Size</span></li>
+                        
+                        <li><hr class="dropdown-divider" style="margin:4px 0px; width:100%"></li>
+                        <li><span class="dropdown-item" style="color:#AF0000" (click)="deleteBlock(block.blockId)">Delete Block</span></li>
+                    </ul>
+                </div>
+
+                <div class="col col-content d-inline" *ngIf="block.type!='image' || block.content==''" id={{block.blockId}}>
+                    <form [formGroup]="form">
+
+                        <quill-editor class="block-body {{block.type}}" format="html" theme="bubble" formControlName={{block.blockId}}  
+                        [readOnly]=page.locked||forceLock (onSelectionChanged)="blockSelection(block,$event);" (onContentChanged)="blockChange(block.blockId,$event);" 
+                        [modules]="modules" spellcheck="false" [formats]="formats" *ngIf="block.type!='image'">
+                            <div quill-editor-toolbar>
+                                <span class="ql-formats">
+                                    <button type="button" class="ql-bold"></button>
+                                    <button type="button" class="ql-italic"></button>
+                                    <button type="button" class="ql-underline"></button>
+                                    <button type="button" class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button type="button" class="ql-code"></button>
+                                    <button type="button" class="ql-link"></button>
+                                    <button type="button" class="ql-blockquote"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button type="button" class="ql-script" value="sub">></button>
+                                    <button type="button" class="ql-script" value="super"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-align" [title]="'Aligment'">
+                                        <option selected></option>
+                                        <option value="center"></option>
+                                        <option value="right"></option>
+                                        <option value="justify"></option>
+                                    </select>
+                                    <select class="ql-color" [title]="'Color'">
+                                    </select>
+                                    <select class="ql-background" [title]="'BackgroundColor'">
+                                    </select>
+                                </span>
+                            </div>
+                        </quill-editor>
+
+                        <div class="block-img" *ngIf="block.type=='image'" >
+                            <div class="button image-block rounded" data-bs-toggle="dropdown" aria-expanded="false" id="image-up" *ngIf="!block.content">
+                                <span class="button fa fa-picture-o"></span> 
+                                <span class="img-block-text">Add an Image</span>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="image-up">
+                                <label for={{block.blockId.concat(block.type)}} class="custom-file-upload">
+                                    <i class="fa fa-cloud-upload" style="padding-right: 6px"></i>Upload an Image
+                                </label>
+                                <input (change)="onFileSelect($event,block.blockId)" type="file" id={{block.blockId.concat(block.type)}}>
+                            </div>
+                        </div>   
+                        
+                    </form>
+
+                </div>
+
+                <div class="col" style="margin-bottom: 16px" *ngIf="block.type=='image' && block.content">
+                    <div class="img-content">
+                        <img class="img-body" [src]="block.content" [alt]="block.blockId">
+                    </div>
+                </div>
+
+            </div>            
+        </div>
+
+    </div>
+    <div class="add-block locked-{{page.locked}} forced-{{forceLock}}" role="button" tabindex="0" (click)="createBlock(page.totalBlocks+1)" *ngIf="page">+</div>
+</div>

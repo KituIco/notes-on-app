@@ -1,0 +1,146 @@
+<nav class="navbar sticky-top navbar-expand-md">
+    
+    <div class="container-fluid header">
+    
+        <a class="navbar-brand" href="/">
+            <img src={{logo}} class="app-logo d-inline-block float-left img-fluid">
+            {{title}}
+        </a>
+
+        <div class="d-flex">
+          <a class="btn secondary nav-btn" (click)="logout()">Log out</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row dashboard" *ngIf=user>
+
+  <div class="col-lg-4 col-md-5" style="padding:0px; margin-bottom: 10px">
+    <div class="card"> 
+      <img class="card-img-top" src="http://localhost:3000/static/images/transparent.png">
+      <div class="card-body little-profile text-center" >
+          <div class="pro-img">
+            <img src="http://localhost:3000/static/images/profile.png" *ngIf="!user.icon" style="filter: sepia(50%) hue-rotate(340deg) saturate(100%);">
+            <img src={{user.icon}} *ngIf="user.icon">
+          </div>
+          <p class="user-fullname">{{user.firstName}} {{user.lastName}}</p>
+          <p class="user-username">username: {{user.userName}}</p>
+          <p class="user-subheading">Email Address</p>
+          <p class="user-heading">{{user.email}}</p>
+          <p class="user-subheading">Workspace Count</p>
+          <p class="user-heading" *ngIf="user.totalWorkspaces<2">{{user.totalWorkspaces}} workspace</p>
+          <p class="user-heading" *ngIf="user.totalWorkspaces>1">{{user.totalWorkspaces}} workspaces</p>
+
+          <a class="btn top-btn secondary btn-rounded" data-bs-toggle="modal" data-bs-target="#userModal">Edit User Information</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8 col-md-7 col-12 body-div">
+    <h1 class="top-title text-center">My Workspaces</h1>
+    <div class="body-spaces">
+      <div class="row">
+        <div class="col-lg-6 col-12 card-col" *ngFor="let workspace of workspaces">
+          <a class="card-link" routerLink="/workspaces/{{workspace.workspaceId}}">
+            <div class="card space-card">
+              <img src={{workspace.icon}} *ngIf="workspace.icon" class="card-img-top rounded" />
+              <img src="http://localhost:3000/static/images/workspace-icon.png" *ngIf="!workspace.icon" />
+              <div class="card-body" style="padding:10px">
+                <h6 class="space-title">{{ workspace.title }}</h6>
+                <span class="space-date">created on {{formatDate(workspace.creationDate)}}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="top-form">
+      <button type="button" class="btn primary top-btn " data-bs-toggle="modal" data-bs-target="#spaceModal">
+        Create Workspace
+      </button>
+    </div>
+
+  </div>
+
+  <div class="modal fade space-modal" id="spaceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Workspace</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form [formGroup]="spaceform" #spaceDirective="ngForm" (ngSubmit)="onSubmit(spaceform.value)" novalidate>
+                  <div style="padding: 20px">
+                    <div>
+                      <span style="font-weight:300; font-variant:small-caps;">Title</span>
+                      <input class="form-control" formControlName="title" placeholder="Add a title...">
+                    </div>
+                    <div style="margin: 8px 0px 8px 0px">
+                      <span style="font-weight:300; font-variant:small-caps;">Description</span>
+                      <textarea class="form-control" formControlName="description" rows="4" placeholder="Add a description..."></textarea>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn primary" type="submit" [disabled]="!spaceform.valid" data-bs-dismiss="modal">Add Workspace</button>
+                  </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <div class="modal fade space-modal" id="userModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form [formGroup]="userform" #spaceDirective="ngForm" (ngSubmit)="updateUser(userform.value)" novalidate>
+          
+          <div class="row " style="padding: 30px 50px">
+            <div class="col col-6">
+                <span style="font-weight:300; font-variant:small-caps;">Change Username</span>
+                <input class="form-control" formControlName="userName" placeholder="{{user.userName}}">
+                <br>
+                <span style="font-weight:300; font-variant:small-caps;">Change Full Name</span>
+                <input class="form-control" formControlName="firstName" placeholder="{{user.firstName}}">
+                <input class="form-control" formControlName="lastName" placeholder="{{user.lastName}}" style="margin-top: 4px;">
+            </div>
+            <div class="col col-6">
+                <span style="font-weight:300; font-variant:small-caps;">Change Password</span>
+                <input type="password" class="form-control" formControlName="oldpassword" placeholder="Old Password">
+                <input type="password" class="form-control" formControlName="password" placeholder="New Password" style="margin-top: 4px;">
+                <br>
+                <p style="font-weight:300; font-variant:small-caps; margin-bottom: 2px;">Change Icon</p>
+                <label for=icon class="custom-file-upload">
+                  <i class="fa fa-cloud-upload" style="padding-right:6px"></i>Upload an Image
+                </label>
+                <input type="file" id="icon" data-bs-dismiss="modal" (change)="onIconSelect($event)">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn primary" type="submit" [disabled]="!userform.valid" data-bs-dismiss="modal">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr class="home-hr" *ngIf=user>
+
+<footer class="row home-ftr text-muted" *ngIf=user>
+    <div class="col-8">
+      <p class="ftr-text">
+        NotesOn is a <a href="https://notion.so" class="ftr-link">Notion</a> clone! Your all-in-one workspace for notes, docs, wikis, projects, and team collaboration. 
+      </p>
+    </div>
+</footer>

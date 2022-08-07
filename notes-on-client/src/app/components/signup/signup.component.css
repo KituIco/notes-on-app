@@ -1,0 +1,174 @@
+.navbar {
+    background-color: rgb(255,254,252);
+    padding-right:10px;
+    border-bottom:1px solid #E3E3E3; 
+}
+
+.header {
+    max-width: 1260px;
+}
+
+.app-logo{
+    max-width: 50px;
+    transform: translate(15%, -5%);
+}
+
+.navbar-brand {
+    font-weight: bold ;
+    letter-spacing: 0px;
+    color: black;
+    font-size: 17px;
+    padding-top: 8px;
+    font-family: inter-var, -apple-system, BlinkMacSystemFont,  "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+    Helvetica, Arial, "Lucida Grande", sans-serif, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";   
+}
+@media (max-width: 372.98px) {
+    .navbar-brand{
+        font-size:0px;
+    }
+}
+
+.primary {
+    min-width:80px;
+    color: black;
+    background: rgb(255,254,252);
+    box-shadow: 0 1px 2px rgba(15, 15, 15, 0.1);
+}
+.primary:hover {
+    background: rgb(225,224,222);
+    border: 1px solid #be5643;
+}
+
+.btn.nav-btn{
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0px;
+    height: 35px;
+    min-width: 60px;
+    font-family: inter-var, -apple-system, BlinkMacSystemFont,  "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+    Helvetica, Arial, "Lucida Grande", sans-serif, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+}
+@media (max-width: 767.98px) {                  
+    .btn.nav-btn {
+        width:100%;
+    }
+}
+
+.login-div{
+    margin-top:min(8vh,160px);
+    margin-bottom: min(14vh,280px);
+}
+    
+
+.top-title {
+    margin-top: 0;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    font-weight: 700;
+    font-size: 3.8625rem;
+    line-height: 3.9625rem;
+    font-variation-settings: "wght" 671;
+    letter-spacing: -0.0115em;
+    font-family: Arial;
+}
+
+.top-form{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.top-btn{
+    margin-top:20px;
+    min-width: min(360px,90vw);
+}
+
+input.ng-invalid.ng-touched {
+    border: rgb(123, 4, 4) 1px solid;
+}
+
+.signup-text-c{
+    max-width: min(360px,90vw);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: start;
+    margin-bottom: 2px;
+}
+
+.signup-text{
+    font-weight:100;
+    font-size: 12px;
+    text-align: start;
+    color: #909090;
+    font-family: Arial;
+}
+
+.form-control{
+    max-width: min(360px,90vw);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: #F7F7F7;
+    font-size: 14px;
+    font-family: Arial;
+}
+
+.secondary {
+    color: rgb(238, 87, 87);
+    background: rgb(253,245,242);
+    border: 1px solid rgb(238, 87, 87);
+    box-shadow: 0 1px 2px rgba(15, 15, 15, 0.1);
+}
+.secondary:hover {
+    background:  rgb(249, 198, 179);
+}
+
+.signup-hr {
+    max-width: min(360px,90vw);
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.home-hr {
+    max-width: 1260px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.home-ftr{
+    background-color: rgb(255,254,252);
+    max-width: 1260px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.ftr-text{
+    font-weight:100;
+    font-size: 15px;
+    font-family: Arial;
+}
+@media (max-width: 575.98px) {
+    .ftr-text{
+        font-size: 13px;
+        line-height: 13px;
+    }
+}
+
+.ftr-link{
+    font-weight:400;
+    color:#ac4b44;
+    font-size: 15px;
+    text-decoration: none;
+    font-family: Arial;
+}
+@media (max-width: 575.98px) {
+    .ftr-link{
+        font-size: 13px;
+        line-height: 13px;
+    }
+}
+

@@ -1,0 +1,166 @@
+<body class="notes-body" *ngIf="page && notoastr">
+    <nav class="navbar sticky-top navbar-expand-md">
+        <div class="container-fluid d-flex navbar" *ngIf="page">
+
+            <div class="row navbar-brand">
+                <div class="page-title">
+                    <img src="http://localhost:3000/static/images/page-icon.webp" class="page-icon rounded" *ngIf="!page.icon">
+                    <img [src]="page.icon" *ngIf="page.icon" class="page-icon rounded">    
+                    <span class="page-title-text" *ngIf="page.title">{{page.title}}</span>
+                </div>
+            </div>
+            
+            <div class="ms-auto row navbar-right">
+                <div class="col-9 navbar-right-text">
+                    <a class="nav-link" href="home">Visit NotesOn</a>
+                    
+                </div>
+                <div class="col-3" style="padding:0px 4px;">
+                    <a href="home">
+                        <img src="http://localhost:3000/static/images/notion-logo.png" class="notion-icon"> 
+                    </a>
+                    
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="row banner banner-{{page.banner}}" style="cursor: pointer;">
+        <div class="col-12" *ngIf="page" style="padding:0px;">
+            <div class="profile-block">
+                <div class="profile-cover cover-container">
+                    <img [src]="page.cover" *ngIf="page.cover" class="img-cover">  
+                </div>
+                <div class="profile-img rounded">
+                    <img src="http://localhost:3000/static/images/page-icon.webp" style="padding:10px; padding-right:4px;" *ngIf="!page.icon">
+                    <img [src]="page.icon" *ngIf="page.icon">       
+                </div>
+                
+                <div class="profile-menu">
+                    <div class="block-menu">
+                        <ul class="locked-1">
+                            <li>
+                                <div class="rounded">
+                                    Change Cover
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rounded">
+                                    Change Icon
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="main-page"  class="page-frame" *ngIf="blocks">
+        <div class="page-content" *ngIf="page" >
+            <form [formGroup]="form" class="page-title-big">
+                <quill-editor id="title" format="html" [modules]="{toolbar: false}" theme="bubble" placeholder="Untitled" [readOnly]=readOnly spellcheck="false"
+                formControlName="title">
+                <div quill-editor-toolbar style="display:none"></div>
+                </quill-editor>
+            </form>
+
+            <div class="row justify-content-center">
+                <div class="col row col-lg-{{sizes[block.size]}} col-12 row-block" *ngFor="let block of blocks" >
+
+                    <div class="col col-auto col-button d-inline locked-1 col-{{block.type}}" cdkDragHandle>
+                        <span class="button fa fa-plus"></span> 
+                        <span class="button fa fa-angle-double-down" id="blockType"></span>
+                    </div>
+
+                    <div class="col col-content d-inline" *ngIf="block.type!='image' || block.content==''">
+                        <form [formGroup]="form">
+
+                            <quill-editor class="block-body {{block.type}}" format="html" theme="bubble" formControlName={{block.blockId}} id={{block.blockId}}
+                            [readOnly]=readOnly spellcheck="false" *ngIf="block.type!='image'">
+                                <div quill-editor-toolbar>
+                                    <span class="ql-formats">
+                                        <button type="button" class="ql-bold"></button>
+                                        <button type="button" class="ql-italic"></button>
+                                        <button type="button" class="ql-underline"></button>
+                                        <button type="button" class="ql-strike"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button type="button" class="ql-code"></button>
+                                        <button type="button" class="ql-link"></button>
+                                        <button type="button" class="ql-blockquote"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <select class="ql-align" [title]="'Aligment'">
+                                            <option selected></option>
+                                            <option value="center"></option>
+                                            <option value="right"></option>
+                                            <option value="justify"></option>
+                                        </select>
+                                        <select class="ql-color" [title]="'Color'">
+                                        </select>
+                                        <select class="ql-background" [title]="'BackgroundColor'">
+                                        </select>
+                                    </span>
+                                </div>
+                            </quill-editor>
+
+                            <div class="block-img" *ngIf="block.type=='image'" >
+                                <div class="button image-block rounded" *ngIf="!block.content">
+                                    <span class="button fa fa-picture-o"></span> 
+                                    <span class="img-block-text">Add an Image</span>
+                                </div>
+                                
+                            </div>   
+                            
+                        </form>
+
+                    </div>
+
+                    <div class="col" style="margin-bottom: 16px" *ngIf="block.type=='image' && block.content">
+                        <div class="img-content">
+                            <img class="img-body" [src]="block.content" [alt]="block.blockId">
+                        </div>
+                    </div>
+
+                </div>            
+            </div>
+
+        </div>
+        
+    </div>
+</body>
+
+<body class="notes-body" *ngIf=!notoastr>
+    <nav class="navbar sticky-top navbar-expand-md">
+        <div class="container-fluid d-flex navbar" *ngIf="page">
+
+            <div class="row navbar-brand">
+                <div class="page-title">
+                    <img src="http://localhost:3000/static/images/page-icon.webp" class="page-icon rounded">
+                    <span class="page-title-text" *ngIf="page.title">Page Locked by Owner</span>
+                </div>
+            </div>
+            
+            <div class="ms-auto row navbar-right">
+                <div class="col-9 navbar-right-text">
+                    <a class="nav-link" href="home">Visit NotesOn</a>
+                    
+                </div>
+                <div class="col-3" style="padding:0px 4px;">
+                    <a href="home">
+                        <img src="http://localhost:3000/static/images/notion-logo.png" class="notion-icon"> 
+                    </a>
+                    
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <img class="home-page-img" src="http://localhost:3000/static/images/home-page-hero.png">
+    <div>
+        <h1 class="home-page-text">Page not Found.</h1>
+    </div>
+</body>

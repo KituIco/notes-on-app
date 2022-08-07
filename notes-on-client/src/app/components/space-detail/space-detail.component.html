@@ -1,0 +1,298 @@
+<body class="notes-body" *ngIf="workspace">
+    <mat-sidenav-container class="notes-cursor">
+
+        <mat-sidenav mode=side [(opened)]="opened" class="space-sidebar">
+            <div class="row sidebar-header">
+                <button class="col-10 sidebar-text" data-bs-toggle="modal" data-bs-target="#mySpaces" (click)="getUserSpaces()">
+                    <img class="space-icon rounded" src="http://localhost:3000/static/images/workspace-icon.png" *ngIf="!workspace.icon">
+                    <img class="space-icon rounded" [src]="workspace.icon" *ngIf="workspace.icon"> 
+                    <div class="sidebar-title">
+                        {{workspace.title}}
+                    </div>
+                </button>
+                <div class="col-2" style="padding: 0px;">
+                    <button class="sidenav-toggler" (click)="opened=!opened">
+                        <span class="fa fa-close"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row sidebar-subheader">
+                <a type="button" class="sidebar-menu" routerLink="/workspaces/{{workspace.workspaceId}}">
+                    <div class="sidebar-text" type="button">
+                        Workspace Info
+                    </div>
+                </a>
+            </div>
+            <div class="row sidebar-subheader">
+                <a class="sidebar-menu" data-bs-toggle="modal" data-bs-target="#searchPage">
+                    <div class="sidebar-text" type="button">
+                        Search Page
+                    </div>
+                </a>
+            </div>
+            <div class="row sidebar-subheader">
+                <a class="sidebar-menu" data-bs-toggle="modal" data-bs-target="#editSpace">
+                    <div class="sidebar-text" type="button">
+                        Edit Workspace
+                    </div>
+                </a>
+            </div>
+
+            <div class="page-list">
+                <div class="list-header">
+                    Workspace Pages
+                </div>
+                <div cdkDropList (cdkDropListDropped)="onDrop($event)">
+                    <div class="list-content" *ngFor="let cur of pages" cdkDrag>
+                        <div *ngIf="cur.pageId==curpage.pageId" style="background-color: rgb(217, 216, 211);">
+                            <a routerLink="/workspaces/{{workspace.workspaceId}}/pages/{{cur.pageId}}" class="page-link">
+                                <img class="page-icon rounded" src="http://localhost:3000/static/images/page-icon.webp" *ngIf="!cur.icon">
+                                <img class="page-icon rounded" [src]="cur.icon" *ngIf="cur.icon"> 
+                                <div class="page-text-container">
+                                    <div class="page-list-text">
+                                        {{cur.title}}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div *ngIf="cur.pageId!=curpage.pageId">
+                            <a routerLink="/workspaces/{{workspace.workspaceId}}/pages/{{cur.pageId}}" class="page-link">
+                                <img class="page-icon rounded" src="http://localhost:3000/static/images/page-icon.webp" *ngIf="!cur.icon">
+                                <img class="page-icon rounded" [src]="cur.icon" *ngIf="cur.icon"> 
+                                <div class="page-text-container">
+                                    <div class="page-list-text">
+                                        {{cur.title}}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="footer-add-page" (click)="createPage()">
+                    <div class="plus-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="plus-svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </div>
+                    <div class="footer-text">
+                        New page
+                    </div>
+                </button>
+            </div>
+            
+        </mat-sidenav>
+
+
+        <mat-sidenav-content style="padding: 0px;">
+            <nav class="navbar sticky-top navbar-expand-md">
+                <div class="container-fluid d-flex navbar">
+
+                    <div class="row navbar-brand">
+                        <div class="col-auto" style="padding:1px" *ngIf="!opened">
+                            <button class="nav-toggler" (click)="getPages()"  (click)="opened=!opened">
+                                <span class="fa fa-bars"></span>
+                            </button>
+                        </div>
+                        <div class="col page-title">
+                            <img src="http://localhost:3000/static/images/notion-logo.png" class="notion-icon"> 
+                            <span class="page-title-text" style="padding-right:10px">{{workspace.title}}</span>
+                            <span class="page-title-text" style="padding-right:10px" *ngIf="curpage.title">/</span>
+                            <span class="page-title-text" *ngIf="curpage.title">{{curpage.title}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ms-auto row navbar-right">
+                        <div class="col-9 navbar-right-text">
+                            <a class="nav-link" href="dashboard">Go to dashboard</a>
+                        </div>
+                        <div class="col-3" style="padding:0px 4px;">
+                            <div class="dropdown">
+                                <button class="nav-cog" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="curpage.title">
+                                    <span class="fa fa-cog"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" style="min-width: 180px; padding: 4px;" aria-labelledby="dropdownMenuLink">
+                                    <li> 
+                                        <div class="form-check form-switch" style="padding:3px 12px; margin:0px; display: flex; vertical-align: middle; ">
+                                            <span style="font-size: 14px; padding-right:90.2px;">Lock Page</span>
+                                            <input class="form-check-input" style="height: 0.96em;" type="checkbox" (change)="lockToggle($event)" [checked]="curpage.locked">
+                                        </div>
+                                    </li>
+                                    <li> 
+                                        <div class="form-check form-switch" style="padding:3px 12px; margin:0px; display: flex; vertical-align: middle; ">
+                                            <span style="font-size: 14px; padding-right:76px;">Hide Banner</span>
+                                            <input class="form-check-input" style="height: 0.96em;" type="checkbox" (change)="bannerToggle($event)" [checked]="curpage.banner">
+                                        </div>
+                                    </li>
+                                    <li> 
+                                        <div class="form-check form-switch" style="padding:3px 12px; margin:0px; display: flex; vertical-align: middle; ">
+                                            <span style="font-size: 14px; padding-right:83.6px;">Share Page</span>
+                                            <input class="form-check-input" style="height: 0.96em;" type="checkbox" (change)="shareToggle($event)" [checked]="curpage.shared">
+                                        </div>
+                                    </li>
+                                    <li *ngIf="shared">
+                                        <a class="dropdown-item nav-settings" [cdkCopyToClipboard]="pagelink" id="dropdownMenuLink">
+                                            Copy Link
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item nav-settings" data-bs-toggle="modal" data-bs-target="#deletePage" style="color:#AF0000" id="dropdownMenuLink">
+                                            Delete Page
+                                        </a>
+                                    </li>
+                                </ul>
+                              </div>
+
+                            <button class="nav-cog" data-bs-toggle="modal" data-bs-target="#editSpace" *ngIf="!curpage.title">
+                                <span class="fa fa-cog"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+            <router-outlet></router-outlet>
+
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
+    <div class="modal fade space-modal" id="mySpaces" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">My Workspaces</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div>
+                    <div class="search-result" >
+                        <ul class="list-group" cdkDropList (cdkDropListDropped)="onSpaceDrop($event)">
+                            <div *ngFor="let space of workspaces" cdkDrag>
+                                <a class="list-group-item" style="cursor: pointer; align-items: center;" href="/workspaces/{{space.workspaceId}}/info" *ngIf="space.workspaceId!==workspace.workspaceId">
+                                    <img class="searchpage-icon rounded" src="http://localhost:3000/static/images/workspace-icon.png" *ngIf="!space.icon">
+                                    <img class="searchpage-icon rounded" [src]="space.icon" *ngIf="space.icon"> 
+                                    <span>{{space.title}}</span>
+                                </a>
+                                <a class="list-group-item" style="cursor: pointer; color: rgb(238, 87, 87); align-items: center;" *ngIf="space.workspaceId==workspace.workspaceId">
+                                    <img class="searchpage-icon rounded" src="http://localhost:3000/static/images/workspace-icon.png" *ngIf="!space.icon">
+                                    <img class="searchpage-icon rounded" [src]="space.icon" *ngIf="space.icon"> 
+                                    <span>{{space.title}}</span>
+                                </a>
+                            </div>   
+                        </ul>
+                    </div>
+
+                    <div class="modal-footer" style="max-height: 8px; padding: 2px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade space-modal" id="searchPage" tabindex="-1">
+        <div class="modal-dialog">
+            
+            <div class="search-box rounded" >
+                <div class="search-form" >
+                    <label class="fa fa-search" for="search"></label>
+                    <input type="search" name="search" ngModel class="form-control search-bar" type="text" autocomplete="off"
+                        placeholder="Search {{workspace.title}}..." onblur="this.value=''" (blur)="onBlur()"  (keyup)="newTerm($event)" >
+                </div>
+                <div class="search-result" >
+                    <ul class="list-group">
+                        <li class="list-group-item" style="cursor: pointer; align-items: center;" *ngFor="let cur of searchResults$ | async" 
+                            routerLink="/workspaces/{{workspace.workspaceId}}/pages/{{cur.pageId}}" data-bs-dismiss="modal">
+                            <img class="searchpage-icon rounded" src="http://localhost:3000/static/images/page-icon.webp" *ngIf="!cur.icon">
+                            <img class="searchpage-icon rounded" [src]="cur.icon" *ngIf="cur.icon"> 
+                            <span>{{cur.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer" style="max-height: 8px; padding: 2px">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade space-modal" id="editSpace" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Workspace</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form [formGroup]="spaceform" #spaceDirective="ngForm" (ngSubmit)="onSubmit(spaceform.value)" novalidate>
+                    <div class="row modal-body top-form" style="overflow-y:hidden;">
+                        <div class="col col-8">
+                            <span style="font-weight:300; font-variant:small-caps;">Title</span>
+                            <input class="form-control" formControlName="title" placeholder="{{workspace.title}}" style="font-weight: 300">
+                        </div>
+                        <div class="col col-4">
+                            <span style="font-weight:300; font-variant:small-caps;">Order</span>
+                            <input class="form-control" type="number" min="1" max="{{workspace.totalWorkspaces}}" formControlName="order" placeholder="{{workspace.order}}" style="font-weight: 300">
+                        </div>
+                        <div class="col col-12" style="margin: 8px 0px 8px 0px">
+                            <span style="font-weight:300; font-variant:small-caps;">Description</span>
+                            <textarea class="form-control" formControlName="description" rows="4" placeholder="{{workspace.description}}" style="font-weight: 300"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn secondary" data-bs-toggle="modal" data-bs-target="#deleteSpace">Delete Workspace</button>
+                        <button type="button" class="btn primary" type="submit" [disabled]="!spaceform.valid" data-bs-dismiss="modal">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade space-modal" id="deletePage" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <div >
+                    <div class="modal-body top-form" style="text-align: center; padding: 40px 10px 40px 0px; font-weight: 300">
+                        Are you sure you want to delete <b>{{curpage.title}}</b>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn primary" (click)="deletePage(curpage.pageId!)" data-bs-dismiss="modal" 
+                            routerLink="/workspaces/{{workspace.workspaceId}}">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade space-modal" id="deleteSpace" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <div>
+                    <div class="modal-body top-form" style="text-align: center; padding: 40px 10px 40px 0px; font-weight: 300">
+                        Are you sure you want to delete <b>{{workspace.title}}</b>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn primary"  data-bs-dismiss="modal" (click)="deleteWorkspace(workspace.workspaceId!)"
+                            routerLink="/dashboard">Confirm</button>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ </body>

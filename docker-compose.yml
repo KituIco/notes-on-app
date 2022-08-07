@@ -1,0 +1,39 @@
+version: "3"
+ 
+services:
+    angular:
+        build: ./notes-on-client
+        ports:
+            - 4200:4200
+        volumes: 
+            - ./notes-on-client/:/app
+
+    express_app:
+        build: ./notes-on-server
+        ports:
+            - 3000:3000
+        volumes:
+            - ./notes-on-server/:/app
+        environment:
+            - DB_NAME=notesdb
+            - DB_HOST=db_server
+            - DB_PORT=3306
+            - DB_USER=root
+            - DB_PASSWORD=password
+        depends_on:
+            - db_server
+        command: "bash start.sh db_server:3306"
+    
+    db_server:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=notesdb
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    
+    redis:
+        image: redis
+        ports:
+            - "6379:6379"
