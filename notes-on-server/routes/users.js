@@ -5,7 +5,7 @@ const multer = require("multer");
 
 const mysql = require('mysql');
 const shortid = require('shortid');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Redis = require('ioredis');
 
 
